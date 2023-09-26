@@ -2,4 +2,10 @@
     <string name="app_name">GPA Calc</string>
     <string name="select_education_body">Select Education Body</string>
     <string name="select_education_body_branch">Select Branch</string>
+    <string name="btnRemove">Remove</string>
+    <string name="course">Course Name</string>
+    <string name="gradePoints">Grade Points</string>
+    <string name="creditHours">Credit Hours</string>
+    <string name="btnAdd">Add</string>
+    <string name="btnCalc">Calc</string>
 </resources>

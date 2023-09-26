@@ -1,8 +1,10 @@
 package com.ashfaqalizardaristore.mobileapp.gpacalcapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,16 +18,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ashfaqalizardaristore.mobileapp.gpacalcapp.adapters.CoursesAdapter;
 import com.ashfaqalizardaristore.mobileapp.gpacalcapp.databinding.ActivityMainBinding;
+import com.ashfaqalizardaristore.mobileapp.gpacalcapp.models.Course;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding mainActivity;
     private Dialog dialog;
     private ArrayList<Object> universities, branches;
-
+    private ArrayList<Course> courses;
+    private ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,18 +98,41 @@ public class MainActivity extends AppCompatActivity {
                 String selectedText = adapter.getItem(position).toString();
                 mainActivity.universityView.setText(selectedText);
 
-                Toast.makeText(MainActivity.this, "selection "+selectedText, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "selection " + selectedText, Toast.LENGTH_LONG).show();
                 loadBranches();
                 // Dismiss dialog
                 dialog.dismiss();
             });
         });
-
-
-
-
+        // Lookup the recyclerview in activity layout
+        // Initialize contacts
+        courses = Course.createCoursesList(1);
+        // Create adapter passing in the sample user data
+        CoursesAdapter adapter = new CoursesAdapter(courses, getApplicationContext());
+        // Attach the adapter to the recyclerview to populate items
+        mainActivity.rvCourses.setAdapter(adapter);
+        // Set layout manager to position the items
+        mainActivity.rvCourses.setLayoutManager(new LinearLayoutManager(this));
+        mainActivity.btnAdd.setOnClickListener(view -> {
+            courses.add(new Course(Course.getLastCourseId(), "", 0, 0));
+            adapter.notifyDataSetChanged();
+        });
+        mainActivity.btnCalc.setOnClickListener(view -> {
+            adapter.calculate();
+//            double TotalGradesPoints = 0, TotalCoursesCreditHours = 0, gpa = 0;
+//            int coursesCount = 0;
+//
+//            for (Course course : courses) {
+//                TotalGradesPoints += (course.getmGradePoints() * course.getmCreditHours());
+//                TotalCoursesCreditHours += (course.getmCreditHours());
+//                coursesCount++;
+//            }
+//            gpa = (TotalGradesPoints / TotalCoursesCreditHours) / coursesCount;
+//            Toast.makeText(this, "GPA is: " + gpa, Toast.LENGTH_SHORT).show();
+        });
     }
-
+//    private double TotalGradesPoints = 0, TotalCoursesCreditHours = 0, gpa = 0;
+//    private int coursesCount = 0;
     private void loadBranches() {
         mainActivity.branchView.setOnClickListener(v -> {
             // Initialize dialog
@@ -123,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Initialize and assign variable
             EditText editText = dialog.findViewById(R.id.edit_text);
-            ListView listView = dialog.findViewById(R.id.list_view);
+            listView = dialog.findViewById(R.id.list_view);
             TextView dropdown_menu_title = dialog.findViewById(R.id.dropdown_menu_title);
             dropdown_menu_title.setText(getString(R.string.select_education_body_branch));
             // Initialize array adapter
@@ -153,10 +182,11 @@ public class MainActivity extends AppCompatActivity {
                 String selectedText = adapter.getItem(position).toString();
                 mainActivity.branchView.setText(selectedText);
 
-                Toast.makeText(MainActivity.this, "selection "+selectedText, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "selection " + selectedText, Toast.LENGTH_LONG).show();
                 // Dismiss dialog
                 dialog.dismiss();
             });
         });
+
     }
 }

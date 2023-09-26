@@ -1,37 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".MainActivity"
-    >
-<TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1">
+    tools:context=".MainActivity">
 
-    <TextView
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/universityView"
-        android:hint="@string/select_education_body"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:drawableEnd="@drawable/ic_arrow"
-        android:background="@android:drawable/editbox_background"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/branchView"
-        android:hint="@string/select_education_body_branch"
-        android:padding="12dp"
-        android:gravity="center_vertical"
-        android:drawableEnd="@drawable/ic_arrow"
-        android:background="@android:drawable/editbox_background"
-        />
+        android:layout_margin="10pt"
+        android:stretchColumns="1">
 
+        <TextView
+            android:id="@+id/universityView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:drawableEnd="@drawable/ic_arrow"
+            android:gravity="center_vertical"
+            android:hint="@string/select_education_body" />
 
-</TableLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="6pt" />
+
+        <TextView
+            android:id="@+id/branchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:drawableEnd="@drawable/ic_arrow"
+            android:gravity="center_vertical"
+            android:hint="@string/select_education_body_branch"
+            android:padding="12dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="6pt" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="@string/btnAdd" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10" />
+
+            <Button
+                android:id="@+id/btnCalc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:text="@string/btnCalc" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="6pt" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCourses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </TableLayout>
 </ScrollView>
